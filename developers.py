@@ -1,6 +1,7 @@
 from flask import request
 from flask_restful import Resource
 import json
+from habilities import habilities_list
 
 developer_list = [{'id': 0,
                    'name': 'Elber',
@@ -42,6 +43,12 @@ class Developers(Resource):
 
     def post(self):
         dev = json.loads(request.data)
+        habilities = dev['habilities']
+        for hability in habilities:
+            if hability not in habilities_list:
+                response = {"statuscode": 400,
+                            "message": "Hability does not exist"}
+                return response
         last_id = len(developer_list)
         dev.update({'id': last_id})
         developer_list.append(dev)
