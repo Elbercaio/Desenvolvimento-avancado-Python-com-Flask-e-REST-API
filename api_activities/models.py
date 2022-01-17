@@ -36,7 +36,25 @@ class ActivitiesModel(base):
     status = Column(String(10), default='pendente')
 
     def __repr__(self):
-        return f'<Activitie {self.name}>'
+        return f'<Activitie {self.activity}>'
+
+    def save(self):
+        db_session.add(self)
+        db_session.commit()
+
+    def delete(self):
+        db_session.delete(self)
+        db_session.commit()
+
+
+class AdminsModel(base):
+    __tablename__ = 'admins'
+    id = Column(Integer, primary_key=True)
+    login = Column(String(40), unique=True)
+    password = Column(String(40))
+
+    def __repr__(self):
+        return f'<Admin {self.login}>'
 
     def save(self):
         db_session.add(self)

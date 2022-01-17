@@ -2,7 +2,6 @@ from flask import Flask
 from flask_restful import Api
 from users import User, Users
 from activities import Activity, Activities, ActivitiesByName
-
 app = Flask(__name__)
 api = Api(app)
 

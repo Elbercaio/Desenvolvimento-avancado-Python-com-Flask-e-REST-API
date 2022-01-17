@@ -1,7 +1,7 @@
 from flask import request
 from flask_restful import Resource
 from models import UsersModel
-# import json
+from authentication import auth
 
 
 class User(Resource):
@@ -18,6 +18,7 @@ class User(Resource):
                         "message": "Id does not exist"}
         return response
 
+    @auth.login_required
     def put(self, id):
         try:
             user = UsersModel.query.filter_by(id=id).first()
@@ -38,6 +39,7 @@ class User(Resource):
 
         return response
 
+    @auth.login_required
     def delete(self, id):
         try:
             user = UsersModel.query.filter_by(id=id).first()
@@ -62,6 +64,7 @@ class Users(Resource):
 
         return response
 
+    @auth.login_required
     def post(self):
         data = request.json
         user = UsersModel(name=data["name"], age=data["age"])

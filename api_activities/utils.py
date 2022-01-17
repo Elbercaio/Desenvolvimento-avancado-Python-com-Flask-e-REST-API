@@ -1,4 +1,4 @@
-from models import UsersModel
+from models import UsersModel, AdminsModel
 
 
 def insert_user():
@@ -25,8 +25,20 @@ def delete_user():
     user.delete()
 
 
+def select_admin():
+    admins = AdminsModel.query.all()
+    print(admins)
+
+
+def insert_admin():
+    user = AdminsModel(login='Elber', password='123')
+    user.save()
+
+
 if __name__ == '__main__':
     insert_user()
+    insert_admin()
+    select_admin()
     # select_user()
     # update_user()
     # select_user()

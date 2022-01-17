@@ -1,6 +1,7 @@
 from flask import request
 from flask_restful import Resource
 from models import ActivitiesModel, UsersModel
+from authentication import auth
 
 
 class Activity(Resource):
@@ -18,6 +19,7 @@ class Activity(Resource):
                         "message": "Id does not exist"}
         return response
 
+    @auth.login_required
     def put(self, id):
         try:
             activity = ActivitiesModel.query.filter_by(id=id).first()
@@ -37,6 +39,7 @@ class Activity(Resource):
 
         return response
 
+    @auth.login_required
     def delete(self, id):
         try:
             activity = ActivitiesModel.query.filter_by(id=id).first()
@@ -62,6 +65,7 @@ class Activities(Resource):
 
         return response
 
+    @auth.login_required
     def post(self):
         data = request.json
         activity_user = UsersModel.query.filter_by(name=data["name"]).first()
@@ -78,6 +82,8 @@ class Activities(Resource):
 
 
 class ActivitiesByName(Resource):
+
+    @auth.login_required
     def get(self, name):
         activity_user = UsersModel.query.filter_by(name=name).first()
         activities = ActivitiesModel.query.filter_by(
