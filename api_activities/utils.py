@@ -1,32 +1,34 @@
-from models import Users
+from models import UsersModel
 
 
 def insert_user():
-    user = Users(name='Galleani', age=25)
+    user = UsersModel(name='Galleani', age=25)
+    user.save()
+    user = UsersModel(name='Rafaele', age=27)
     user.save()
 
 
 def select_user():
-    users = Users.query.all()
-    # user = Users.query.filter_by(name='Galleani').first()
+    users = UsersModel.query.all()
+    # user = UsersModel.query.filter_by(name='Galleani').first()
     print(users)
 
 
 def update_user():
-    user = Users.query.filter_by(name='Galleani').first()
+    user = UsersModel.query.filter_by(name='Galleani').first()
     user.name = 'Felipe'
     user.save()
 
 
 def delete_user():
-    user = Users.query.filter_by(name='Felipe').first()
+    user = UsersModel.query.filter_by(name='Felipe').first()
     user.delete()
 
 
 if __name__ == '__main__':
     insert_user()
-    select_user()
-    update_user()
-    select_user()
-    delete_user()
-    select_user()
+    # select_user()
+    # update_user()
+    # select_user()
+    # delete_user()
+    # select_user()

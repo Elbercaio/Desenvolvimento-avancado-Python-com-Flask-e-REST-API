@@ -9,7 +9,7 @@ base = declarative_base()
 base.query = db_session.query_property()
 
 
-class Users(base):
+class UsersModel(base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     name = Column(String(40), index=True)
@@ -27,12 +27,13 @@ class Users(base):
         db_session.commit()
 
 
-class Activities(base):
+class ActivitiesModel(base):
     __tablename__ = 'activities'
     id = Column(Integer, primary_key=True)
-    activitie = Column(String(80))
+    activity = Column(String(80))
     user_id = Column(Integer, ForeignKey("users.id"))
-    user = relationship("Users")
+    activity_user = relationship("UsersModel")
+    status = Column(String(10), default='pendente')
 
     def __repr__(self):
         return f'<Activitie {self.name}>'
